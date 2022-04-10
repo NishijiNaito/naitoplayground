@@ -1,0 +1,61 @@
+/* your styles go here */
+
+body {
+    font-family: "Sarabun";
+}
+
+.nowrap {
+    white-space: nowrap;
+}
+
+.table-nowrap>thead>tr>th,
+.table-nowrap>thead>tr>td,
+.table-nowrap>tbody>tr>th,
+.table-nowrap>tbody>tr>td,
+.table-nowrap>tr>th,
+.table-nowrap>tr>td {
+    white-space: nowrap;
+    vertical-align: middle;
+}
+
+.border-3 {
+    border-width: 3px !important;
+}
+
+.table>thead>tr>td {
+    white-space: nowrap;
+}
+
+div.form-control {
+    white-space: nowrap;
+    background-color: #F8F8FF;
+}
+
+.border-left-pink {
+    border-left: 0.25rem solid #FFB6C1 !important;
+}
+
+.border-bottom-primary {
+    border-bottom: 0.25rem solid #4e73df !important;
+}
+
+.text-pink {
+    color: #FFB6C1 !important;
+}
+
+a.text-success:hover,
+a.text-success:focus {
+    color: #ff7388 !important;
+}
+
+.myselect {
+    width: 150px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.myselect option {
+    white-space: nowrap;
+    width: 100% border-bottom: 1px #ccc solid;
+    /* This doesn't work. */
+}
