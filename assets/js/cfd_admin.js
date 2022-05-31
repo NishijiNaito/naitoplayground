@@ -30,6 +30,7 @@ socket.on('game_info', (data) => {
         $('#answerPrefix').val("")
         $('#answerSuffix').val("")
         $('#answer').val("")
+        $('#c_questionpicture').attr('src', '');
 
 
     } else if (data.inGameStage == 1) {
@@ -39,6 +40,7 @@ socket.on('game_info', (data) => {
 
         $('#c_question').html(data['question'].question)
         $('#c_questionexplain').html(data['question'].questionexplain)
+        $('#c_questionpicture').attr('src', data['question'].questionpicture);
         $('#c_answer').html(data['question'].answerPrefix + " " + data['question'].answer + " " + data['question'].answerSuffix)
         $('#spa').prop('disabled', false)
         $('#ra').prop('disabled', true)
@@ -48,6 +50,8 @@ socket.on('game_info', (data) => {
         $('#player_zone').show()
         $('#c_question').html(data['question'].question)
         $('#c_questionexplain').html(data['question'].questionexplain)
+        $('#c_questionpicture').attr('src', data['question'].questionpicture);
+
         $('#c_answer').html(data['question'].answerPrefix + " " + data['question'].answer + " " + data['question'].answerSuffix)
         $('#spa').prop('disabled', true)
         $('#ra').prop('disabled', false)
@@ -57,6 +61,8 @@ socket.on('game_info', (data) => {
         $('#player_zone').show()
         $('#c_question').html(data['question'].question)
         $('#c_questionexplain').html(data['question'].questionexplain)
+        $('#c_questionpicture').attr('src', data['question'].questionpicture);
+
         $('#c_answer').html(data['question'].answerPrefix + " " + data['question'].answer + " " + data['question'].answerSuffix)
 
     }
@@ -82,10 +88,11 @@ $('#question_form').submit(function(e) {
     console.log($('#start_form').serializeArray())
     question = $('#question').val()
     questionexplain = $('#questionexplain').val()
+    questionpicture = $('#questionpicture').val()
     answer = parseFloat($('#answer').val())
     answerPrefix = $('#answerPrefix').val()
     answerSuffix = $('#answerSuffix').val()
-    questionare = { question, questionexplain, answer, answerPrefix, answerSuffix }
+    questionare = { question, questionexplain, questionpicture, answer, answerPrefix, answerSuffix }
 
     // console.log()
     $('#question_zone').hide()

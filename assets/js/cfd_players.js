@@ -51,8 +51,8 @@ socket.on('game_info', (data) => {
         // normal_game(data)
         $('#question_zone').show()
         $('#q_question').html(data['question'].question)
-        $('#min').val("")
-        $('#max').val("")
+            // $('#min').val("")
+            // $('#max').val("")
         playerdata = data['arrPlayerdata']
         if (playerdata[localStorage.getItem('name')].lock_down) { //lock_down
             $('#question_zone').hide()
@@ -60,6 +60,7 @@ socket.on('game_info', (data) => {
             $('#question_zone').show()
             $('#q_question').html(data['question'].question)
             $('#q_questionexplain').html(data['question'].questionexplain)
+            $('#q_questionpicture').attr('src', data['question'].questionpicture)
             $('#q_answer').html(data['question'].answerPrefix + " ??? " + data['question'].answerSuffix)
         }
 
@@ -93,6 +94,8 @@ $('#answer_form').submit(function(e) {
 
         // console.log(ansset)
         socket.emit("submit_answer", ansset)
+        $('#min').val("")
+        $('#max').val("")
     }
 
 

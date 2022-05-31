@@ -33,6 +33,7 @@ socket.on('game_info', (data) => {
         $('#question_zone').show()
         $('#q_question').html(data['question'].question)
 
+        $('#q_questionpicture').attr('src', data['question'].questionpicture)
         $('#q_questionexplain').html(data['question'].questionexplain)
         $('#q_answer').html(data['question'].answerPrefix + " ??? " + data['question'].answerSuffix)
 
@@ -44,12 +45,14 @@ socket.on('game_info', (data) => {
         $('#question_zone').show()
         $('#q_question').html(data['question'].question)
 
+        $('#q_questionpicture').attr('src', data['question'].questionpicture);
         $('#q_questionexplain').html(data['question'].questionexplain)
         $('#q_answer').html(data['question'].answerPrefix + " ??? " + data['question'].answerSuffix)
     } else if (data.inGameStage == 3) {
         $('#question_zone').show()
         $('#q_question').html(data['question'].question)
 
+        $('#q_questionpicture').attr('src', data['question'].questionpicture);
         $('#q_questionexplain').html(data['question'].questionexplain)
         $('#q_answer').html(data['question'].answerPrefix + " " + data['question'].answer + " " + data['question'].answerSuffix)
 
@@ -139,7 +142,7 @@ function player_update(data) {
                 if (playerdata[pl].answer_status == "correct_smallest") {
                     card_col = "text-white bg-success"
                 } else if (playerdata[pl].answer_status == "correct") {
-                    card_col = "text-dark bg-primary"
+                    card_col = "text-white bg-primary"
                 } else {
                     card_col = "text-white bg-danger"
                 }

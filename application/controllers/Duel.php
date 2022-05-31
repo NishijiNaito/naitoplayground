@@ -39,13 +39,40 @@ class Duel extends CI_Controller {
 
     public function addquestion() {
         $post = $this->input->post();
-        if ($this->Prepare_model->insert_data_succ('playground.duel_quiz', $post)) {
-            $res['status'] = 1;
-            $res['txt'] = "เพิ่มคำถามเรียบร้อย";
-        } else {
-            $res['status'] = 0;
-            $res['txt'] = "ไม่สามารถเพิ่มคำถาม";
+        // if ($this->Prepare_model->insert_data_succ('playground.duel_quiz', $post)) {
+        //     $res['status'] = 1;
+        //     $res['txt'] = "เพิ่มคำถามเรียบร้อย";
+        // } else {
+        //     $res['status'] = 0;
+        //     $res['txt'] = "ไม่สามารถเพิ่มคำถาม";
+        // }
+
+        if ($post['quiz_id'] == "") { // add
+            unset($post['quiz_id']);
+            if ($this->Prepare_model->insert_data_succ('playground.duel_quiz', $post)) {
+                $res['status'] = 1;
+                $res['txt'] = "เพิ่มคำถามเรียบร้อย";
+            } else {
+                $res['status'] = 0;
+                $res['txt'] = "ไม่สามารถเพิ่มคำถาม";
+            }
+        } else { // edit
+            $quiz_id = $post['quiz_id'];
+            unset($post['quiz_id']);
+            if ($this->Prepare_model->update_data('playground.duel_quiz', 'quiz_id', $quiz_id, $post)) {
+                $res['status'] = 1;
+                $res['txt'] = "แก้ไขคำถามเรียบร้อย";
+            } else {
+                $res['status'] = 0;
+                $res['txt'] = "ไม่สามารถแก้ไขคำถาม";
+            }
         }
+
+
+
+
+
+
         echo json_encode($res);
     }
     public function question_list() {

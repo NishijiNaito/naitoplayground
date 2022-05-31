@@ -54,13 +54,27 @@ class Confident extends CI_Controller {
 
     public function addquestion() {
         $post = $this->input->post();
-        if ($this->Prepare_model->insert_data_succ('playground.confident_quiz', $post)) {
-            $res['status'] = 1;
-            $res['txt'] = "เพิ่มคำถามเรียบร้อย";
-        } else {
-            $res['status'] = 0;
-            $res['txt'] = "ไม่สามารถเพิ่มคำถาม";
+        if ($post['cfd_id'] == "") { // add
+            unset($post['cfd_id']);
+            if ($this->Prepare_model->insert_data_succ('playground.confident_quiz', $post)) {
+                $res['status'] = 1;
+                $res['txt'] = "เพิ่มคำถามเรียบร้อย";
+            } else {
+                $res['status'] = 0;
+                $res['txt'] = "ไม่สามารถเพิ่มคำถาม";
+            }
+        } else { // edit
+            $cfd_id = $post['cfd_id'];
+            unset($post['cfd_id']);
+            if ($this->Prepare_model->update_data('playground.confident_quiz', 'cfd_id', $cfd_id, $post)) {
+                $res['status'] = 1;
+                $res['txt'] = "แก้ไขคำถามเรียบร้อย";
+            } else {
+                $res['status'] = 0;
+                $res['txt'] = "ไม่สามารถแก้ไขคำถาม";
+            }
         }
+
         echo json_encode($res);
     }
 }

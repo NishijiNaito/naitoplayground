@@ -16,6 +16,7 @@
                     <button type="button" onclick="add_question()" class="btn btn-success">เพิ่ม</button>
                 </div> -->
                 <form id="question_form">
+                    <input type="hidden" name="cfd_id" value="">
                     <div class="input-group mb-3">
                         <span class="input-group-text">คำถาม</span>
                         <input type="text" id="question" name="question" class="form-control" required>
@@ -32,11 +33,12 @@
                         <input type="text" id="answerSuffix" name="answerSuffix" placeholder="หน่วยท้าย" class="form-control">
                     </div>
                     <div class="d-grid gap-2 mb-3">
+                        <button type="button" class="btn btn-danger" onclick="clear_question()">ล้างคำถาม</button>
                         <button type="submit" class="btn btn-success">ส่งคำถาม</button>
                     </div>
                 </form>
                 <hr>
-                <p class="card-text" >
+                <p class="card-text">
                 <div class="table-responsive" style="font-size: 20px;">
                     <table class="table" id="tbl_list">
                         <thead>
@@ -167,7 +169,7 @@
                 className: 'nowrap',
                 render: function(data, type, full) {
                     return `
-                            <a onclick="edit_user('${data['cfd_id']}')" class="btn btn-primary" role="button">
+                            <a onclick="edit_quiz('${data['cfd_id']}')" class="btn btn-primary" role="button">
                                     แก้ไข
                                 </a>
                                 <a onclick="delete_user('${data['cfd_id']}')" class="btn btn-danger" role="button">
@@ -215,7 +217,7 @@
     $('#question_form').submit(function(e) {
         e.preventDefault();
         // console.log($('#question_form').serializeArray())
-        
+
         $.ajax({
             type: "post",
             url: "<?= base_url('confident/addquestion') ?>",
@@ -237,6 +239,7 @@
 
 
                     // $('[name^="answer"]').prop('checked', false);
+                    $('[name^="cfd_id"]').val('')
                     $('[name^="question"]').val('')
                     $('[name^="questionexplain"]').val('')
                     $('[name^="answerPrefix"]').val('')
@@ -247,10 +250,42 @@
                 }
             }
         });
-        
+
 
 
     });
+
+    function clear_question() {
+        $('[name^="cfd_id"]').val('')
+        $('[name^="question"]').val('')
+        $('[name^="questionexplain"]').val('')
+        $('[name^="answerPrefix"]').val('')
+        $('[name^="answer"]').val('')
+        $('[name^="answerSuffix"]').val('')
+    }
+
+    function edit_quiz(id) {
+        $.ajax({
+            type: "post",
+            url: "<?= base_url('confident/question_list') ?>",
+            data: {
+                cfd_id: id
+            },
+            dataType: "json",
+            success: function(response) {
+                quiz = response[0]
+                // question = quiz
+                console.log(quiz)
+                $('[name^="cfd_id"]').val(id)
+                $('#question').val(quiz.question)
+                $('#questionexplain').val(quiz.questionexplain)
+                $('#answerPrefix').val(quiz.answerPrefix)
+                $('#answerSuffix').val(quiz.answerSuffix)
+                $('#answer').val(quiz.answer)
+                // $('#sq').prop('disabled', false);
+            }
+        });
+    }
 
 
 
